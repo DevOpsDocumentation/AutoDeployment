@@ -61,4 +61,4 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             https://api.github.com/repos/DevOpsDocumentation/devops/dispatches \
-            -d '{"event_type":"deploy-trigger","client_payload":{"environment":"dev","services":"app"}}'
+            -d '{"event_type":"deploy-trigger","client_payload":{"environment":"dev","services":"nginx"}}'
