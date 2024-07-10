@@ -54,6 +54,9 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+      - name: Convert repository name to snake case
+        run: |
+          echo "SERVICE=$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]' | tr '/' '_')" >> $GITHUB_ENV
 
       - name: Trigger deployment workflow
         if: ${{ success() && github.ref == 'refs/heads/dev' }}
@@ -62,4 +65,4 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.PAT }}" \
             https://api.github.com/repos/${{ github.repository_owner }}/${{ vars.DEPLOY_REPO || 'devops1' }}/dispatches \
-            -d '{"event_type":"deploy-trigger","client_payload":{"services":"${{ vars.SERVICE }}"}}'
+            -d '{"event_type":"deploy-trigger","client_payload":{"services":"${{ vars.SERVICE  || env.SERVICE }}"}}'
