@@ -56,7 +56,10 @@ jobs:
 
       - name: Convert repository name to snake case
         run: |
-          echo "SERVICE=$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]' | tr '/' '_')" >> $GITHUB_ENV
+          REPO_NAME=$(echo "${GITHUB_REPOSITORY}" | awk -F/ '{print $2}')
+          SNAKE_CASE_REPO_NAME=$(echo "${REPO_NAME}" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-zA-Z0-9]/_/g')
+          echo "SERVICE=${SNAKE_CASE_REPO_NAME}" >> $GITHUB_ENV
+    
 
       - name: Trigger deployment workflow
         if: ${{ success() && github.ref == 'refs/heads/dev' }}
