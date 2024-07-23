@@ -1,1 +1,1 @@
-print ("hello Samagra!!")
+print ("hello Samagra")
