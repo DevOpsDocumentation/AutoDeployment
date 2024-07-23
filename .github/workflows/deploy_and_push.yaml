@@ -12,6 +12,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  ENABLE_AUTO_DEPLOY: ${{ secrets.ENABLE_AUTO_DEPLOY }}
 
 jobs:
   build-and-push:
@@ -62,7 +63,7 @@ jobs:
     
 
       - name: Trigger deployment workflow
-        if: ${{ success() && github.ref == 'refs/heads/dev' }}
+        if: ${{ success() && github.ref == 'refs/heads/dev' && env.ENABLE_AUTO_DEPLOY == 'dev' }}
         run: |
           curl -X POST \
             -H "Accept: application/vnd.github.v3+json" \
