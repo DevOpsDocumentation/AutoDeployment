@@ -68,4 +68,4 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.PAT }}" \
             https://api.github.com/repos/${{ github.repository_owner }}/${{ vars.DEPLOY_REPO || 'devops1' }}/dispatches \
-            -d '{"event_type":"deploy-trigger","client_payload":{"services":"${{ vars.SERVICE  || env.SERVICE }}", "environment":"["dev", "stage", "prod"]"}}'
+            -d '{"event_type":"deploy-trigger","client_payload":{"services":"${{ vars.SERVICE  || env.SERVICE }}", "environment":["dev", "stage", "prod"]}}'
