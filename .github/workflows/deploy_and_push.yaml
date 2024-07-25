@@ -12,7 +12,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  ENABLE_AUTO_DEPLOY: ${{ secrets.ENABLE_AUTO_DEPLOY }}
 
 jobs:
   build-and-push:
@@ -74,4 +73,4 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.PAT }}" \
             https://api.github.com/repos/${{ github.repository_owner }}/${{ vars.DEPLOY_REPO || 'devops1' }}/dispatches \
-            -d '{"event_type":"deploy-trigger","client_payload":{"services":"${{ vars.SERVICE  || env.SERVICE }}", "environment":"${{ env.ENABLE_AUTO_DEPLOY }}"}}'
+            -d '{"event_type":"deploy-trigger","client_payload":{"services":"${{ vars.SERVICE  || env.SERVICE }}", "environment":"${{ secrets.ENABLE_AUTO_DEPLOY }}"}}'
