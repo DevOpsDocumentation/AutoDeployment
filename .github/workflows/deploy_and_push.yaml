@@ -59,7 +59,11 @@ jobs:
           REPO_NAME=$(echo "${GITHUB_REPOSITORY}" | awk -F/ '{print $2}')
           SNAKE_CASE_REPO_NAME=$(echo "${REPO_NAME}" | sed 's/\(.\)\([A-Z]\)/\1_\2/g' | tr '[:upper:]' '[:lower:]' | sed 's/^_//' | tr -s '_' | tr '[:upper:]' '[:lower:]')
           echo "SERVICE=${SNAKE_CASE_REPO_NAME}" >> $GITHUB_ENV
-    
+
+      - name: Convert ENABLE_AUTO_DEPLOY to JSON array
+        run: |
+          ENABLE_AUTO_DEPLOY_JSON=$(echo '[${{ secrets.ENABLE_AUTO_DEPLOY }}]' | sed 's/ /","/g' | sed 's/^/"/' | sed 's/$/"/')
+          echo "ENABLE_AUTO_DEPLOY_JSON=${ENABLE_AUTO_DEPLOY_JSON}" >> $GITHUB_ENV
 
       - name: Trigger deployment workflow
         if: ${{ success() }}
