@@ -62,7 +62,7 @@ jobs:
 
       - name: Convert ENABLE_AUTO_DEPLOY to JSON array
         run: |
-          ENABLE_AUTO_DEPLOY_JSON=$(echo '[${{ secrets.ENABLE_AUTO_DEPLOY }}]' | sed 's/ /","/g' | sed 's/^/"/' | sed 's/$/"/')
+          ENABLE_AUTO_DEPLOY_JSON=$(echo '[${{ secrets.ENABLE_AUTO_DEPLOY }}]' | sed 's/ /", "/g' | sed 's/^/"/' | sed 's/$/"/')
           echo "ENABLE_AUTO_DEPLOY_JSON=${ENABLE_AUTO_DEPLOY_JSON}" >> $GITHUB_ENV
 
       - name: Trigger deployment workflow
