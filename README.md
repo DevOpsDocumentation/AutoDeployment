@@ -1,4 +1,4 @@
-
+# DOC
 ## build_and_push.yaml 
 - Previously used to build and push docker-images to ghcr
 - Image name: repository name 
